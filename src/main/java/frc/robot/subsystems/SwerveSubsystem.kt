@@ -1,7 +1,15 @@
 package frc.robot.subsystems
 
+import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.math.geometry.Rotation2d
+import edu.wpi.first.math.kinematics.ChassisSpeeds
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry
+import edu.wpi.first.math.kinematics.SwerveModulePosition
+import edu.wpi.first.math.kinematics.SwerveModuleState
+import edu.wpi.first.wpilibj.RobotBase
 import edu.wpi.first.wpilibj2.command.SubsystemBase
+import frc.robot.Constants
 
 /**
  * Swerve drive subsystem with four modules.
@@ -14,6 +22,10 @@ class SwerveSubsystem : SubsystemBase() {
 
     // Module IOs
     private val moduleIOs: Array<SwerveModuleIO>
+
+    // Odometry for tracking robot position
+    private val odometry: SwerveDriveOdometry
+    private var gyroRotation = Rotation2d()
 
     companion object {
         // Motor type selection
@@ -45,7 +57,7 @@ class SwerveSubsystem : SubsystemBase() {
 
     init {
         // Determine if we're in simulation
-        val isSim = false // TODO: Replace with Robot.isSimulation() or similar
+        val isSim = RobotBase.isSimulation()
 
         // Create module IOs based on environment and motor type
         moduleIOs = if (isSim) {
@@ -75,12 +87,70 @@ class SwerveSubsystem : SubsystemBase() {
         modules = Array(4) { i ->
             SwerveModule(moduleIOs[i], "Module$i")
         }
+
+        // Initialize odometry
+        odometry = SwerveDriveOdometry(
+            Constants.DriveConstants.SWERVE_KINEMATICS,
+            gyroRotation,
+            getModulePositions()
+        )
     }
 
     override fun periodic() {
         // Update all modules
         modules.forEach { it.periodic() }
+
+        // Update odometry
+        odometry.update(gyroRotation, getModulePositions())
     }
+
+    /**
+     * Drive the robot with the given chassis speeds.
+     */
+    fun drive(chassisSpeeds: ChassisSpeeds) {
+        // Convert chassis speeds to module states
+        val moduleStates = Constants.DriveConstants.SWERVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds)
+
+        // Normalize wheel speeds
+        SwerveDriveKinematics.desaturateWheelSpeeds(
+            moduleStates,
+            Constants.DriveConstants.MAX_SPEED_METERS_PER_SECOND
+        )
+
+        // Set module states
+        setModuleStates(moduleStates)
+    }
+
+    /**
+     * Sets the desired state for each swerve module.
+     */
+    fun setModuleStates(desiredStates: Array<SwerveModuleState>) {
+        for (i in modules.indices) {
+            modules[i].setDesiredState(desiredStates[i])
+        }
+    }
+
+    /**
+     * Gets the current module positions for odometry.
+     */
+    private fun getModulePositions(): Array<SwerveModulePosition> {
+        return Array(4) { i ->
+            SwerveModulePosition(
+                modules[i].getDrivePositionMeters(),
+                modules[i].getTurnPosition()
+            )
+        }
+    }
+
+    /**
+     * Gets the current robot pose.
+     */
+    fun getPose(): Pose2d = odometry.poseMeters
+
+    /**
+     * Gets the current robot rotation.
+     */
+    fun getRotation(): Rotation2d = gyroRotation
 
     /**
      * Stops all swerve modules.
@@ -114,6 +184,25 @@ class SwerveModule(
 
         // TODO: Add AdvantageKit logging here
         // Logger.processInputs("Drive/$name", inputs)
+    }
+
+    /**
+     * Sets the desired state for this module.
+     */
+    fun setDesiredState(desiredState: SwerveModuleState) {
+        // Optimize the reference state to avoid spinning further than 90 degrees
+        val optimizedState = SwerveModuleState.optimize(desiredState, inputs.turnPosition)
+
+        // Simple open-loop control (voltage-based)
+        // For production, use PID controllers for closed-loop control
+        val driveVoltage = optimizedState.speedMetersPerSecond / Constants.DriveConstants.MAX_SPEED_METERS_PER_SECOND * 12.0
+
+        // Simple proportional control for turn
+        val turnError = optimizedState.angle.minus(inputs.turnPosition).radians
+        val turnVoltage = turnError * 5.0 // Simple P gain
+
+        io.setDriveVoltage(driveVoltage)
+        io.setTurnVoltage(turnVoltage)
     }
 
     /**

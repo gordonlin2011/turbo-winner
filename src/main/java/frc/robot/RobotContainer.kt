@@ -1,46 +1,70 @@
 package frc.robot
 
+import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController
-import edu.wpi.first.wpilibj2.command.button.Trigger
-import frc.robot.commands.ExampleCommand
-import frc.robot.subsystems.ExampleSubsystem
+import frc.robot.commands.DriveCommand
+import frc.robot.subsystems.SwerveSubsystem
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the [Robot]
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
- *
- * In Kotlin, it is recommended that all your Subsystems are Kotlin objects. As such, there
- * can only ever be a single instance. This eliminates the need to create reference variables
- * to the various subsystems in this container to pass into to commands. The commands can just
- * directly reference the (single instance of the) object.
  */
 object RobotContainer
 {
+    // Subsystems
+    val swerveSubsystem = SwerveSubsystem()
+
+    // Controllers
+    private val driverController = CommandXboxController(0)
+
     init
     {
         configureBindings()
-        // Reference the Autos object so that it is initialized, placing the chooser on the dashboard
+        configureDefaultCommands()
     }
 
-    // Replace with CommandPS4Controller or CommandJoystick if needed
-    private val driverController = CommandXboxController(0)
-
     /**
-     * Use this method to define your `trigger->command` mappings. Triggers can be created via the
-     * [Trigger] constructor that takes a [BooleanSupplier][java.util.function.BooleanSupplier]
-     * with an arbitrary predicate, or via the named factories in [GenericHID][edu.wpi.first.wpilibj2.command.button.CommandGenericHID]
-     * subclasses such for [Xbox][CommandXboxController]/[PS4][edu.wpi.first.wpilibj2.command.button.CommandPS4Controller]
-     * controllers or [Flight joysticks][edu.wpi.first.wpilibj2.command.button.CommandJoystick].
+     * Configure button bindings for teleop control.
      */
     private fun configureBindings()
     {
-        // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-        Trigger { ExampleSubsystem.exampleCondition() }.onTrue(ExampleCommand())
+        // X button - Set brake mode
+        driverController.x().onTrue(
+            swerveSubsystem.runOnce { swerveSubsystem.setBrakeMode(true) }
+        )
 
-        // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-        // cancelling on release.
-        driverController.b().whileTrue(ExampleSubsystem.exampleMethodCommand())
+        // B button - Set coast mode
+        driverController.b().onTrue(
+            swerveSubsystem.runOnce { swerveSubsystem.setBrakeMode(false) }
+        )
+
+        // A button - Stop all modules
+        driverController.a().onTrue(
+            swerveSubsystem.runOnce { swerveSubsystem.stop() }
+        )
+    }
+
+    /**
+     * Set up default commands for subsystems.
+     */
+    private fun configureDefaultCommands()
+    {
+        // Default command: Drive with joysticks
+        swerveSubsystem.defaultCommand = getDriveCommand()
+    }
+
+    /**
+     * Gets the main drive command using joystick inputs.
+     */
+    private fun getDriveCommand(): Command {
+        return DriveCommand(
+            swerveSubsystem,
+            { -driverController.leftY },  // Forward/backward (inverted)
+            { -driverController.leftX },  // Left/right (inverted)
+            { -driverController.rightX }, // Rotation (inverted)
+            true                          // Field-relative
+        )
     }
 }
