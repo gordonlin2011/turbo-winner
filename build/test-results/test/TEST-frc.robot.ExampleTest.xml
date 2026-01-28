@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="frc.robot.ExampleTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-01-28T22:38:36" hostname="InconThink" time="0.012">
+<testsuite name="frc.robot.ExampleTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-01-28T22:57:54" hostname="InconThink" time="0.018">
   <properties/>
-  <testcase name="2 plus 2 should equal 4()" classname="frc.robot.ExampleTest" time="0.012"/>
+  <testcase name="2 plus 2 should equal 4()" classname="frc.robot.ExampleTest" time="0.018"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
