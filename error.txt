@@ -1,0 +1,53 @@
+ ********** Robot program starting ********** ﻿
+﻿﻿﻿﻿﻿﻿ NT: Listening on NT3 port 1735, NT4 port 5810 ﻿
+﻿﻿﻿﻿﻿﻿ java.lang.UnsatisfiedLinkError: /usr/local/frc/third-party/lib/libCTRE_PhoenixTools.so: libFRC_NetworkCommunication.so.26: cannot open shared object file: No such file or directory ﻿
+﻿﻿﻿﻿﻿﻿ 	at java.base/jdk.internal.loader.NativeLibraries.load(Native Method) ﻿
+﻿﻿﻿﻿﻿﻿ 	at java.base/jdk.internal.loader.NativeLibraries$NativeLibraryImpl.open(Unknown Source) ﻿
+﻿﻿﻿﻿﻿﻿ 	at java.base/jdk.internal.loader.NativeLibraries.loadLibrary(Unknown Source) ﻿
+﻿﻿﻿﻿﻿﻿ 	at java.base/jdk.internal.loader.NativeLibraries.loadLibrary(Unknown Source) ﻿
+﻿﻿﻿﻿﻿﻿ 	at java.base/jdk.internal.loader.NativeLibraries.findFromPaths(Unknown Source) ﻿
+﻿﻿﻿﻿﻿﻿ 	at java.base/jdk.internal.loader.NativeLibraries.loadLibrary(Unknown Source) ﻿
+﻿﻿﻿﻿﻿﻿ 	at java.base/java.lang.ClassLoader.loadLibrary(Unknown Source) ﻿
+﻿﻿﻿﻿﻿﻿ 	at java.base/java.lang.Runtime.loadLibrary0(Unknown Source) ﻿
+﻿﻿﻿﻿﻿﻿ 	at java.base/java.lang.System.loadLibrary(Unknown Source) ﻿
+﻿﻿﻿﻿﻿﻿ 	at com.ctre.phoenix6.jni.CtreJniWrapper.<clinit>(CtreJniWrapper.java:16) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.subsystems.SwerveModuleIOTalonFX.<init>(SwerveModuleIOTalonFX.kt:27) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.subsystems.SwerveModuleIOTalonFX.<init>(SwerveModuleIOTalonFX.kt:18) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.subsystems.SwerveSubsystem.<init>(SwerveSubsystem.kt:76) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.RobotContainer.<clinit>(RobotContainer.kt:17) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.Robot.robotInit(Robot.kt:42) ﻿
+﻿﻿﻿﻿﻿﻿ 	at edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107) ﻿
+﻿﻿﻿﻿﻿﻿ 	at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419) ﻿
+﻿﻿﻿﻿﻿﻿ 	at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.Main.main(Main.kt:24) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.Main.main(Main.kt) ﻿
+﻿﻿﻿﻿﻿﻿ java.lang.UnsatisfiedLinkError: no CTRE_PhoenixTools_Sim in java.library.path: /usr/local/frc/third-party/lib ﻿
+﻿﻿﻿﻿﻿﻿ 	at java.base/java.lang.ClassLoader.loadLibrary(Unknown Source) ﻿
+﻿﻿﻿﻿﻿﻿ 	at java.base/java.lang.Runtime.loadLibrary0(Unknown Source) ﻿
+﻿﻿﻿﻿﻿﻿ 	at java.base/java.lang.System.loadLibrary(Unknown Source) ﻿
+﻿﻿﻿﻿﻿﻿ 	at com.ctre.phoenix6.jni.CtreJniWrapper.<clinit>(CtreJniWrapper.java:20) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.subsystems.SwerveModuleIOTalonFX.<init>(SwerveModuleIOTalonFX.kt:27) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.subsystems.SwerveModuleIOTalonFX.<init>(SwerveModuleIOTalonFX.kt:18) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.subsystems.SwerveSubsystem.<init>(SwerveSubsystem.kt:76) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.RobotContainer.<clinit>(RobotContainer.kt:17) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.Robot.robotInit(Robot.kt:42) ﻿
+﻿﻿﻿﻿﻿﻿ 	at edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107) ﻿
+﻿﻿﻿﻿﻿﻿ 	at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419) ﻿
+﻿﻿﻿﻿﻿﻿ 	at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.Main.main(Main.kt:24) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.Main.main(Main.kt) ﻿
+﻿﻿﻿﻿﻿﻿ java.lang.UnsatisfiedLinkError: no CTRE_PhoenixTools_Replay in java.library.path: /usr/local/frc/third-party/lib ﻿
+﻿﻿﻿﻿﻿﻿ 	at java.base/java.lang.ClassLoader.loadLibrary(Unknown Source) ﻿
+﻿﻿﻿﻿﻿﻿ 	at java.base/java.lang.Runtime.loadLibrary0(Unknown Source) ﻿
+﻿﻿﻿﻿﻿﻿ 	at java.base/java.lang.System.loadLibrary(Unknown Source) ﻿
+﻿﻿﻿﻿﻿﻿ 	at com.ctre.phoenix6.jni.CtreJniWrapper.<clinit>(CtreJniWrapper.java:24) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.subsystems.SwerveModuleIOTalonFX.<init>(SwerveModuleIOTalonFX.kt:27) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.subsystems.SwerveModuleIOTalonFX.<init>(SwerveModuleIOTalonFX.kt:18) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.subsystems.SwerveSubsystem.<init>(SwerveSubsystem.kt:76) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.RobotContainer.<clinit>(RobotContainer.kt:17) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.Robot.robotInit(Robot.kt:42) ﻿
+﻿﻿﻿﻿﻿﻿ 	at edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107) ﻿
+﻿﻿﻿﻿﻿﻿ 	at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419) ﻿
+﻿﻿﻿﻿﻿﻿ 	at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.Main.main(Main.kt:24) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.Main.main(Main.kt) ﻿
