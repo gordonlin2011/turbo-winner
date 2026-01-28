@@ -35,7 +35,7 @@ class SwerveSubsystem : SubsystemBase() {
         }
 
         // Set this to your motor type
-        val MOTOR_TYPE = MotorType.KRAKEN_X60
+        val MOTOR_TYPE = MotorType.TALON_FX
 
         // Module hardware IDs (adjust for your robot)
         // Format: [driveMotorId, turnMotorId, cancoderId]

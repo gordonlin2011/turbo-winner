@@ -1,7 +1,7 @@
 package frc.robot
 
 import edu.wpi.first.wpilibj2.command.Command
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick
 import frc.robot.commands.DriveCommand
 import frc.robot.subsystems.SwerveSubsystem
 
@@ -16,8 +16,8 @@ object RobotContainer
     // Subsystems
     val swerveSubsystem = SwerveSubsystem()
 
-    // Controllers
-    private val driverController = CommandXboxController(0)
+    // Controllers - Thrustmaster 16000M Joystick
+    private val driverJoystick = CommandJoystick(0)
 
     init
     {
@@ -27,21 +27,22 @@ object RobotContainer
 
     /**
      * Configure button bindings for teleop control.
+     * Thrustmaster 16000M has buttons numbered 1-16 on base.
      */
     private fun configureBindings()
     {
-        // X button - Set brake mode
-        driverController.x().onTrue(
+        // Button 1 (trigger) - Set brake mode
+        driverJoystick.button(1).onTrue(
             swerveSubsystem.runOnce { swerveSubsystem.setBrakeMode(true) }
         )
 
-        // B button - Set coast mode
-        driverController.b().onTrue(
+        // Button 2 (thumb button) - Set coast mode
+        driverJoystick.button(2).onTrue(
             swerveSubsystem.runOnce { swerveSubsystem.setBrakeMode(false) }
         )
 
-        // A button - Stop all modules
-        driverController.a().onTrue(
+        // Button 3 - Stop all modules
+        driverJoystick.button(3).onTrue(
             swerveSubsystem.runOnce { swerveSubsystem.stop() }
         )
     }
@@ -57,14 +58,15 @@ object RobotContainer
 
     /**
      * Gets the main drive command using joystick inputs.
+     * Thrustmaster 16000M: X/Y for translation, Twist (Z-axis) for rotation.
      */
     private fun getDriveCommand(): Command {
         return DriveCommand(
             swerveSubsystem,
-            { -driverController.leftY },  // Forward/backward (inverted)
-            { -driverController.leftX },  // Left/right (inverted)
-            { -driverController.rightX }, // Rotation (inverted)
-            true                          // Field-relative
+            { -driverJoystick.y },     // Forward/backward (inverted)
+            { -driverJoystick.x },     // Left/right (inverted)
+            { -driverJoystick.twist }, // Rotation from twist axis (inverted)
+            true                       // Field-relative
         )
     }
 }
