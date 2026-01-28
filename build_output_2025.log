@@ -1,0 +1,28 @@
+Picked up _JAVA_OPTIONS: -Dsun.java2d.opengl=true
+> Task :checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :processResources NO-SOURCE
+> Task :downloadDepsPreemptively
+> Task :processTestResources NO-SOURCE
+> Task :extractReleaseNative
+
+> Task :compileKotlin
+w: file:///home/gordonli/turbo-winner/src/main/java/frc/robot/subsystems/SwerveSubsystem.kt:194:48 'static fun optimize(p0: SwerveModuleState!, p1: Rotation2d!): SwerveModuleState!' is deprecated. Deprecated in Java.
+
+> Task :compileJava NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :jar
+> Task :assemble
+> Task :compileTestKotlin
+> Task :compileTestJava NO-SOURCE
+> Task :testClasses UP-TO-DATE
+
+> Task :test
+Picked up _JAVA_OPTIONS: -Dsun.java2d.opengl=true
+
+ExampleTest > 2 plus 2 should equal 4() PASSED
+
+> Task :check
+> Task :build
+
+BUILD SUCCESSFUL in 14s
+6 actionable tasks: 6 executed
