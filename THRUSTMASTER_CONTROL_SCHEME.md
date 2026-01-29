@@ -1,4 +1,4 @@
-# Thrustmaster T.16000M FCS Control Scheme
+ # Thrustmaster T.16000M FCS Control Scheme
 
 ## Robot Control Configuration for Team 2875
 

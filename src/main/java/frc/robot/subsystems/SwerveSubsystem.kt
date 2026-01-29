@@ -40,10 +40,10 @@ class SwerveSubsystem : SubsystemBase() {
         // Module hardware IDs (adjust for your robot)
         // Format: [driveMotorId, turnMotorId, cancoderId]
         val MODULE_CONFIGS = arrayOf(
-            Triple(1, 2, 1),  // Front Left
-            Triple(3, 4, 2),  // Front Right
-            Triple(5, 6, 3),  // Back Left
-            Triple(7, 8, 4)   // Back Right
+            Triple(10, 11, 1),  // Front Left
+            Triple(20, 21, 2),  // Front Right
+            Triple(30, 31, 3),  // Back Left
+            Triple(40, 41, 4)   // Back Right
         )
 
         // CANcoder offsets (calibrate these for your robot)
