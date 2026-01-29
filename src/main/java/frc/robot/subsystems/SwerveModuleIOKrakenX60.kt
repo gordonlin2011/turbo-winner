@@ -202,4 +202,17 @@ class SwerveModuleIOKrakenX60(
             NeutralModeValue.Brake else NeutralModeValue.Coast
         turnMotor.configurator.apply(config)
     }
+
+    override fun resetDriveEncoder() {
+        driveMotor.setPosition(0.0)
+    }
+
+    override fun syncTurnEncoderToAbsolute() {
+        // Get the absolute position from the CANcoder
+        val absolutePosition = cancoder.absolutePosition.refresh().valueAsDouble
+
+        // Set the turn motor encoder to match the absolute position
+        // This accounts for the gear ratio
+        turnMotor.setPosition(absolutePosition * TURN_GEAR_RATIO)
+    }
 }

@@ -65,11 +65,11 @@ object RobotContainer
         // Button 6 - Turbo mode (held during button press)
         // Implemented directly in ThrustmasterDriveCommand
 
-        // Button 7 - Auto-balance (placeholder for future implementation)
-        driverJoystick.button(OIConstants.BUTTON_AUTO_BALANCE).whileTrue(
-            swerveSubsystem.run {
-                // TODO: Implement auto-balance command
-                // For now, just runs the subsystem
+        // Button 7 - Reset wheel positions (hold for 1 second to reset)
+        driverJoystick.button(OIConstants.BUTTON_AUTO_BALANCE).onTrue(
+            swerveSubsystem.runOnce {
+                swerveSubsystem.resetWheelPositions()
+                println("Wheel positions reset - all modules synced to absolute position")
             }
         )
 

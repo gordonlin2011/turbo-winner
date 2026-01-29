@@ -94,6 +94,9 @@ class SwerveSubsystem : SubsystemBase() {
             gyroRotation,
             getModulePositions()
         )
+
+        // Reset wheel positions on init
+        resetWheelPositions()
     }
 
     override fun periodic() {
@@ -164,6 +167,21 @@ class SwerveSubsystem : SubsystemBase() {
      */
     fun setBrakeMode(enable: Boolean) {
         modules.forEach { it.setBrakeMode(enable) }
+    }
+
+    /**
+     * Resets all wheel positions to zero and syncs turn encoders to absolute positions.
+     * This should be called on robot init to ensure consistent starting positions.
+     */
+    fun resetWheelPositions() {
+        modules.forEach { it.resetEncoders() }
+    }
+
+    /**
+     * Resets the odometry to a specific pose.
+     */
+    fun resetOdometry(pose: Pose2d) {
+        odometry.resetPosition(gyroRotation, getModulePositions(), pose)
     }
 }
 
@@ -259,5 +277,14 @@ class SwerveModule(
      */
     fun getOdometryPositions(): Pair<DoubleArray, Array<Rotation2d>> {
         return Pair(inputs.odometryDrivePositionsMeters, inputs.odometryTurnPositions)
+    }
+
+    /**
+     * Resets both drive and turn encoders.
+     * Drive encoder is reset to zero, turn encoder syncs to CANcoder absolute position.
+     */
+    fun resetEncoders() {
+        io.resetDriveEncoder()
+        io.syncTurnEncoderToAbsolute()
     }
 }

@@ -113,4 +113,19 @@ interface SwerveModuleIO {
         setDriveVoltage(0.0)
         setTurnVoltage(0.0)
     }
+
+    /**
+     * Resets the drive encoder position to zero.
+     */
+    fun resetDriveEncoder() {
+        // Default implementation does nothing
+    }
+
+    /**
+     * Syncs the turn motor encoder to the absolute CANcoder position.
+     * This should be called on robot init to ensure all wheels start at the correct angle.
+     */
+    fun syncTurnEncoderToAbsolute() {
+        // Default implementation does nothing
+    }
 }
