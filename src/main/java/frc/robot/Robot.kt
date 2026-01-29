@@ -70,6 +70,10 @@ object Robot : TimedRobot() {
     override fun autonomousInit() {
         // We store the command as a Robot property in the rare event that the selector on the dashboard
         // is modified while the command is running since we need to access it again in teleopInit()
+
+        // Calibrate wheel positions at start of autonomous
+        RobotContainer.swerveSubsystem.resetWheelPositions()
+        println("Autonomous enabled - Wheel positions calibrated to absolute positions")
     }
 
     /** This method is called periodically during autonomous.  */
@@ -80,6 +84,11 @@ object Robot : TimedRobot() {
         // This makes sure that the autonomous stops running when teleop starts running. If you want the
         // autonomous to continue until interrupted by another command, remove this line or comment it out.
         autonomousCommand.cancel()
+
+        // Calibrate all wheel positions every time teleop is enabled
+        // This ensures wheels are synced to absolute CANcoder positions
+        RobotContainer.swerveSubsystem.resetWheelPositions()
+        println("Teleop enabled - Wheel positions calibrated to absolute positions")
     }
 
     /** This method is called periodically during operator control.  */
